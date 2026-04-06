@@ -1,26 +1,26 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainConsistManagementApp {
+
     public static void main(String[] args) {
-        System.out.println("=================================");
-        System.out.println(" UC4 - Maintain Ordered Bogie Consist ");
-        System.out.println("=================================\n");
 
-        LinkedList<String> trainConsist = new LinkedList<>();
+        System.out.println("======================================");
+        System.out.println(" UC6 - Map Bogie to Capacity (HashMap) ");
+        System.out.println("======================================\n");
 
-        trainConsist.add("Engine");
-        trainConsist.add("Sleeper");
-        trainConsist.add("AC");
-        trainConsist.add("Cargo");
-        trainConsist.add("Guard");
+        Map<String, Integer> capacityMap = new HashMap<>();
 
-        trainConsist.add(2, "Pantry");
+        capacityMap.put("Sleeper", 72);
+        capacityMap.put("AC Chair", 78);
+        capacityMap.put("First Class", 24);
+        capacityMap.put("Rectangular Goods", 100);
+        capacityMap.put("Cylindrical Goods", 80);
 
-        trainConsist.removeFirst();
-        trainConsist.removeLast();
+        System.out.println("Bogie Capacity Details:\n");
 
-        for (String bogie : trainConsist) {
-            System.out.println(bogie);
+        for (Map.Entry<String, Integer> entry : capacityMap.entrySet()) {
+            System.out.println("Bogie: " + entry.getKey() + " | Capacity: " + entry.getValue());
         }
     }
 }

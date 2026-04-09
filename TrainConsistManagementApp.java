@@ -1,35 +1,50 @@
 import java.util.*;
-import java.util.regex.*;
 
 public class TrainConsistApp {
+
+    static class CargoSafetyException extends RuntimeException {
+        CargoSafetyException(String message) {
+            super(message);
+        }
+    }
+
+    static class GoodsBogie {
+        String shape;
+        String cargo;
+
+        GoodsBogie(String shape) {
+            this.shape = shape;
+        }
+
+        void assignCargo(String cargo) {
+            try {
+                if (shape.equals("Rectangular") && cargo.equals("Petroleum")) {
+                    throw new CargoSafetyException("Unsafe cargo assignment!");
+                }
+                this.cargo = cargo;
+                System.out.println("Cargo assigned successfully -> " + cargo);
+            } catch (CargoSafetyException e) {
+                System.out.println("Error: " + e.getMessage());
+            } finally {
+                System.out.println("Cargo validation completed for " + shape + " bogie");
+            }
+        }
+    }
 
     public static void main(String[] args) {
 
         System.out.println("=================================");
-        System.out.println("UC11 - Validate Train ID and Cargo Code");
+        System.out.println("UC15 - Safe Cargo Assignment");
         System.out.println("=================================\n");
 
-        Scanner scanner = new Scanner(System.in);
+        GoodsBogie g1 = new GoodsBogie("Cylindrical");
+        g1.assignCargo("Petroleum");
 
-        System.out.print("Enter Train ID (Format: TRN-1234): ");
-        String trainId = scanner.nextLine();
+        System.out.println();
 
-        System.out.print("Enter Cargo Code (Format: PET-AB): ");
-        String cargoCode = scanner.nextLine();
+        GoodsBogie g2 = new GoodsBogie("Rectangular");
+        g2.assignCargo("Petroleum");
 
-        Pattern trainPattern = Pattern.compile("TRN-\\d{4}");
-        Pattern cargoPattern = Pattern.compile("PET-[A-Z]{2}");
-
-        Matcher trainMatcher = trainPattern.matcher(trainId);
-        Matcher cargoMatcher = cargoPattern.matcher(cargoCode);
-
-        boolean isTrainValid = trainMatcher.matches();
-        boolean isCargoValid = cargoMatcher.matches();
-
-        System.out.println("\nValidation Results:");
-        System.out.println("Train ID Valid: " + isTrainValid);
-        System.out.println("Cargo Code Valid: " + isCargoValid);
-
-        System.out.println("\nUC11 validation completed...");
+        System.out.println("\nUC15 runtime handling completed...");
     }
 }
